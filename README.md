@@ -1,5 +1,5 @@
 # Sonnie
-A fun interactive solar monitor app.  Sonnie will use his emotions to tell you how your solar system is doing currently.
+A fun interactive solar monitoring app.  Sonnie will use his emotions to tell you how your solar system is doing currently.
 
 ## Getting Started
 
