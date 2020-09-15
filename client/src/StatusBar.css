@@ -1,0 +1,70 @@
+.statusBarContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /* box-shadow: 0 4px 8px 0 rgba(196, 194, 194, 0.2), 0 6px 20px 0 rgba(212, 210, 210, 0.19); */
+}
+
+.box1 {
+  display:grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+  width: 30%;
+  /* box-shadow: 0 4px 8px 0 rgba(240, 239, 239, 0.2), 0 6px 20px 0 rgba(235, 234, 234, 0.19); */
+}
+
+.boxL {
+  grid-column: 1;
+  grid-row:1;
+  align-self: start;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  width: 100%;
+  height: 280px;
+  z-index: -1;
+}
+
+.solarIcon {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  margin-top: 30%;
+  justify-self: center;
+  color: rgb(255, 255, 255);
+  z-index: 1;
+  /* text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.boxM {
+  grid-column: 1;
+  grid-row:1;
+  align-self: start;
+  width: 100%;
+  height: 280px;
+  z-index: -1;
+}
+
+.boxR {
+  grid-column: 1;
+  grid-row:1;
+  align-self: start;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  width: 100%;
+  height: 280px;
+  z-index: -1;
+}
+
+.panelInfo, .ampInfo, .batteryInfo{
+  align-self: center;
+  color: rgba(248, 174, 113, 0.801);
+  font-family: 'Airbnb Cereal App Book';
+  font-size: 60px;
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+  margin-top: -50%;
+  border-radius: 10%;
+  /* text-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  z-index: 1;
+}
