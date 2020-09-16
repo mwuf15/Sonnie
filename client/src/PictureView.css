@@ -1,7 +1,7 @@
 .imageContainer {
   display: grid;
   margin-top: 10%;
-  grid-template-columns: 30% auto 30%;
+  grid-template-columns: 30% auto 35%;
   grid-template-rows: 20% auto 20%;
   z-index: -1;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -19,7 +19,6 @@
 }
 
 .locationIcon {
-  size: 7x;
   grid-column: 1;
   grid-row: 1;
   color: rgba(248, 174, 113, 0.801);
@@ -29,10 +28,22 @@
   text-shadow: 1px 1px 2px rgb(219, 219, 219);
 }
 
+.time {
+  grid-column: 3;
+  grid-row: 1;
+  color: rgba(248, 174, 113, 0.801);
+  z-index: 1;
+  padding: 10%;
+
+  font-family: 'Airbnb Cereal App Book';
+  font-size: 45px;
+  text-shadow: 1px 1px 2px rgb(219, 219, 219);
+}
+
 .location {
  grid-column: 1 /span 3;
  grid-row: 1;
- font-size: 80px;
+ font-size: 70px;
  z-index: 1;
  padding: 1%;
  margin-left: 10%;
@@ -49,19 +60,19 @@
  z-index: 1;
  height: auto;
  margin-top: 5%;
- /* margin-left: 5%; */
+ margin-left: 10%;
  text-shadow: 1px 1px 2px rgb(219, 219, 219);
 }
 
 
 .temperature {
- font-size: 80px;
+ font-size: 70px;
  z-index: 1;
  grid-column: 3;
  grid-row: 3;
  font-family: 'Airbnb Cereal App Book';
  color: rgba(248, 174, 113, 0.801);
- margin-left: 40%;
+ margin-left: 45%;
  margin-bottom: 2%;
  margin-top: 4%;
  text-shadow: 1px 1px 2px rgb(219, 219, 219);

@@ -9,6 +9,7 @@ import styles from '../App.css';
 import axios from 'axios';
 import key from '../keyConfig.js';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,12 +17,13 @@ class App extends React.Component {
     let hour = d.getHours();
     this.state = {
       location: '',
+      time: '',
       character: '',
       backgroundImages: '',
       temperature: '',
       currentVolt: '',
-      battery: this.props.data.battery[hour],
-      ampUsage: this.props.data.ampUsage[hour],
+      battery: '',
+      ampUsage: '',
       solarPanel: '',
       annual: '',
       month: '',
@@ -30,6 +32,8 @@ class App extends React.Component {
       displayDay: true,
       displayMonth: false,
       displayTotal: false,
+      dayData: [],
+      monthData: []
     };
     this.clickHandlerDay = this.clickHandlerDay.bind(this);
     this.clickHandlerMonth = this.clickHandlerMonth.bind(this);
@@ -46,6 +50,7 @@ getApiData() {
   let d = new Date();
   let month = d.getMonth();
   let hour = d.getHours();
+  // let hour = 17;
   axios.get(url)
     .then((response) => {
       console.log('api data', response.data);
@@ -53,18 +58,24 @@ getApiData() {
       let monthTotal = (response.data.outputs.ac_monthly[month]).toFixed(2);
       let current = (response.data.outputs.ac[hour]).toFixed(2);
       let currentDC = (response.data.outputs.dc[hour]).toFixed(1);
+      let batteryInfo = this.props.data.battery[hour];
+      let usage = this.props.data.ampUsage[hour];
       let day = 0;
+      let dataArr = [];
+      let monthdata = response.data.outputs.dc_monthly;
       for (let i = 0; i < hour; i++) {
         day += response.data.outputs.ac[i];
+        dataArr.push(response.data.outputs.ac[i]);
       }
       let dayTotal = 0;
       if ( day === 0) {
         dayTotal = 0;
+        // dataArr =[];
       } else {
         dayTotal = (day/ hour).toFixed(2);
       }
       console.log(dayTotal);
-      this.setState({annual: total, month: monthTotal, currentVolt: current, day: dayTotal, solarPanel: currentDC})
+      this.setState({annual: total, month: monthTotal, currentVolt: current, day: dayTotal, solarPanel: currentDC, battery: batteryInfo, ampUsage: usage, dayData: dataArr, monthData: monthdata });
     })
     .catch((err) => {
       console.log('error', err);
@@ -74,6 +85,7 @@ getApiData() {
 getWeather() {
   let d = new Date();
   let hour = d.getHours();
+  let time = d.toLocaleTimeString();
   // let hour = 12;
   let url = `http://api.weatherstack.com/current?access_key=${key.Weather}&query=San Francisco`;
   axios.get(url)
@@ -104,7 +116,7 @@ getWeather() {
       let background = this.props.data.backgroundImages[tempStatus]
       let weatherIcon = this.props.data.statusIcon[tempStatus];
       let bear = this.props.data.character[tempStatus];
-      this.setState({location: response.data.location.name, temperature: tempF, currentStatusIcon: weatherIcon, backgroundImages: background, character: bear})
+      this.setState({location: response.data.location.name, temperature: tempF, currentStatusIcon: weatherIcon, backgroundImages: background, character: bear, time: time})
     })
     .catch((err) => {
       console.log('error', err);
@@ -132,12 +144,12 @@ clickHandlerTotal() {
     const isTotal = this.state.displayTotal;
     return (
       <div className={styles.container}>
-        <PictureView volt={this.state.currentVolt} character={this.state.character} image={this.state.backgroundImages} location={this.state.location} temperature={this.state.temperature} icon={this.state.currentStatusIcon}/>
+        <PictureView volt={this.state.currentVolt} character={this.state.character} image={this.state.backgroundImages} location={this.state.location} temperature={this.state.temperature} icon={this.state.currentStatusIcon} time={this.state.time}/>
         <StatusBar battery={this.state.battery} amp={this.state.ampUsage} panel={this.state.solarPanel}/>
-        <PowerStatus annual={this.state.annual} month={this.state.month} day={this.state.day} clickDay={this.clickHandlerDay} clickMonth={this.clickHandlerMonth} clickTotal={this.clickHandlerTotal}/>
-        <div className={styles.graph}>
-          {isDay ? <DayGraph /> : null}
-          {isMonth ? <MonthGraph /> : null}
+        <PowerStatus annual={this.state.annual} month={this.state.month} day={this.state.day} clickDay={this.clickHandlerDay} clickMonth={this.clickHandlerMonth} clickTotal={this.clickHandlerTotal} DayStatus={isDay} MonthStatus={isMonth} TotalStatus={isTotal}/>
+        <div className={styles.graph} >
+          {isDay ? <DayGraph data={this.state.dayData} /> : null}
+          {isMonth ? <MonthGraph data={this.state.monthData}/> : null}
           {isTotal ? <TotalGraph /> : null}
 
         </div>

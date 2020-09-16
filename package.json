@@ -37,6 +37,7 @@
     "babel": "^6.23.0",
     "babel-jest": "^26.2.2",
     "body-parser": "^1.19.0",
+    "chart.js": "^2.9.3",
     "express": "^4.15.0",
     "jest-css-modules-transform": "^4.0.1",
     "jest-environment-enzyme": "^7.1.2",
@@ -44,8 +45,10 @@
     "mysql": "^2.18.1",
     "nodemon": "^1.19.4",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
-    "serialize-javascript": "^4.0.0"
+    "serialize-javascript": "^4.0.0",
+    "zingchart-react": "^3.0.0"
   },
   "babel": {
     "presets": [
