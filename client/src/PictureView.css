@@ -1,6 +1,6 @@
 .imageContainer {
   display: grid;
-  margin-top: 10%;
+  /* margin-top: 10%; */
   grid-template-columns: 30% auto 35%;
   grid-template-rows: 20% auto 20%;
   z-index: -1;

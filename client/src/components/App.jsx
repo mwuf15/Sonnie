@@ -33,7 +33,9 @@ class App extends React.Component {
       displayMonth: false,
       displayTotal: false,
       dayData: [],
-      monthData: []
+      monthData: [],
+      TotalData: [],
+      monthDate: ''
     };
     this.clickHandlerDay = this.clickHandlerDay.bind(this);
     this.clickHandlerMonth = this.clickHandlerMonth.bind(this);
@@ -49,8 +51,8 @@ getApiData() {
   let url = ` https://developer.nrel.gov/api/pvwatts/v6.json?api_key=${key.Token}&lat=37.71&lon=-122&system_capacity=1&azimuth=180&tilt=35&array_type=1&module_type=1&losses=10&timeframe=hourly`;
   let d = new Date();
   let month = d.getMonth();
-  let hour = d.getHours();
-  // let hour = 17;
+  // let hour = d.getHours();
+  let hour = 15;
   axios.get(url)
     .then((response) => {
       console.log('api data', response.data);
@@ -62,7 +64,8 @@ getApiData() {
       let usage = this.props.data.ampUsage[hour];
       let day = 0;
       let dataArr = [];
-      let monthdata = response.data.outputs.dc_monthly;
+      let totaldata = response.data.outputs.dc_monthly;
+      let monthly = response.data.outputs.solrad_monthly;
       for (let i = 0; i < hour; i++) {
         day += response.data.outputs.ac[i];
         dataArr.push(response.data.outputs.ac[i]);
@@ -75,7 +78,7 @@ getApiData() {
         dayTotal = (day/ hour).toFixed(2);
       }
       console.log(dayTotal);
-      this.setState({annual: total, month: monthTotal, currentVolt: current, day: dayTotal, solarPanel: currentDC, battery: batteryInfo, ampUsage: usage, dayData: dataArr, monthData: monthdata });
+      this.setState({annual: total, month: monthTotal, currentVolt: current, day: dayTotal, solarPanel: currentDC, battery: batteryInfo, ampUsage: usage, dayData: dataArr, TotalData: totaldata , monthData: monthly, monthDate: month});
     })
     .catch((err) => {
       console.log('error', err);
@@ -150,7 +153,7 @@ clickHandlerTotal() {
         <div className={styles.graph} >
           {isDay ? <DayGraph data={this.state.dayData} /> : null}
           {isMonth ? <MonthGraph data={this.state.monthData}/> : null}
-          {isTotal ? <TotalGraph /> : null}
+          {isTotal ? <TotalGraph data={this.state.TotalData} month={this.state.monthDate}/> : null}
 
         </div>
       </div>
